@@ -6,6 +6,7 @@
   import Goals from './goals.svelte';
   import Date from './date.svelte';
   import Info from './info.svelte';
+  import Weekly from './weekly.svelte';
 
   export let isAuthenticated = false;
   let showUserInfo = false; // State to control the UserInfo modal visibility
@@ -13,6 +14,7 @@
   let showGoals = false; // State to control the Tips modal visibility
   let showDate = false;
   let showInfo = false;
+  let showWeekly = false;
 
   const toggleUserInfo = () => {
     showUserInfo = !showUserInfo;
@@ -33,6 +35,10 @@
   const toggleInfo = () => {
     showInfo = !showInfo;
   };
+
+  const toggleWeekly = () => {
+    showWeekly = !showWeekly;
+  };
 </script>
 
 <nav class="navbar">
@@ -43,6 +49,7 @@
     <a href="/dashboard" on:click|preventDefault={toggleDate}>Change Date</a>
     <a href="/dashboard" on:click|preventDefault={toggleTips}>Tips</a>
     <a href="/dashboard" on:click|preventDefault={toggleGoals}>Goals</a>
+    <a href="/dashboard" on:click|preventDefault={toggleWeekly}>Weekly</a>
     <a href="/dashboard" on:click|preventDefault={toggleInfo}>Info</a>
     <a href="/logout">Logout</a>
   </div>
@@ -70,6 +77,11 @@
 <!-- Render Info component when showInfo is true -->
 {#if showInfo}
   <Info showModal={showInfo} onClose={toggleInfo} />
+{/if}
+
+<!-- Render Weekly component when showWeekly is true -->
+{#if showWeekly}
+  <Weekly showModal={showWeekly} onClose={toggleWeekly} />
 {/if}
 
 <style>
