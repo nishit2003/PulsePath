@@ -93,8 +93,8 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columns */
     grid-template-rows: repeat(2, auto); /* 2 rows */
-    gap: 1.5rem; /* Space between items */
-    padding: 2rem;  
+    gap: 1rem; /* Space between items */
+    padding: 0%;  
     justify-items: center
   }
 
