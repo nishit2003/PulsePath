@@ -1,10 +1,13 @@
 <script>
+	import Step from './components/step.svelte';
   import LoginComponent from "./components/login.svelte";
   import Navbar from "./components/navbar.svelte";
   import Todo from "./components/todo.svelte";
-  import mood from "./components/mood.svelte";
   import Mood from "./components/mood.svelte";
   import Sleep from "./components/sleep.svelte";
+  import Heart from "./components/heart.svelte";
+  import Calorie from './components/calorie.svelte';
+  
   // let isAuthenticated = false;
   // let user = null;
 
@@ -26,9 +29,9 @@
       <Todo />
       <Mood />
       <Sleep />
-      <Sleep />
-      <Sleep />
-      <Sleep />
+      <Heart />
+      <Step />
+      <Calorie />
     </div>
   {/if}
 
