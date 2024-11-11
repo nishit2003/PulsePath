@@ -5,12 +5,14 @@
   import Tips from './tips.svelte';
   import Goals from './goals.svelte';
   import Date from './date.svelte';
+  import Info from './info.svelte';
 
   export let isAuthenticated = false;
   let showUserInfo = false; // State to control the UserInfo modal visibility
   let showTips = false;
   let showGoals = false; // State to control the Tips modal visibility
   let showDate = false;
+  let showInfo = false;
 
   const toggleUserInfo = () => {
     showUserInfo = !showUserInfo;
@@ -27,6 +29,10 @@
   const toggleDate = () => {
     showDate = !showDate;
   };
+
+  const toggleInfo = () => {
+    showInfo = !showInfo;
+  };
 </script>
 
 <nav class="navbar">
@@ -37,7 +43,7 @@
     <a href="/dashboard" on:click|preventDefault={toggleDate}>Change Date</a>
     <a href="/dashboard" on:click|preventDefault={toggleTips}>Tips</a>
     <a href="/dashboard" on:click|preventDefault={toggleGoals}>Goals</a>
-    <a href="/dashboard">Info</a>
+    <a href="/dashboard" on:click|preventDefault={toggleInfo}>Info</a>
     <a href="/logout">Logout</a>
   </div>
 </nav>
@@ -59,6 +65,11 @@
 <!-- Render Date component when showDate is true -->
 {#if showDate}
   <Date showModal={showDate} onClose={toggleDate} />
+{/if}
+
+<!-- Render Info component when showInfo is true -->
+{#if showInfo}
+  <Info showModal={showInfo} onClose={toggleInfo} />
 {/if}
 
 <style>

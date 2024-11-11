@@ -1,6 +1,7 @@
+<!-- src/components/UserInfo.svelte -->
 <script>
-  import { Modal, Button } from "flowbite-svelte"; // Import Modal from Flowbite
-  
+  import { Modal, Button } from "flowbite-svelte";
+
   export let user = {
     name: "Nishit Grover",
     username: "nishit123",
@@ -20,61 +21,42 @@
   let editedHeight = user.height;
   let editedWeight = user.weight;
 
-  // Mock health stats
-  const healthStats = {
-    waterIntake: "8 cups",
-    sleepHours: "7 hours",
-    exercise: "30 mins",
-  };
-
-  // Health tracking tips
-  const tips = [
-    "Stay hydrated! Aim for at least 8 cups of water each day.",
-    "Aim for 7-8 hours of quality sleep every night.",
-    "Keep active! Try to exercise for 30 minutes daily.",
-    "Remember to log your meals and daily mood to track progress.",
-  ];
-
-  // Toggle edit mode
   function toggleEdit() {
     isEditing = !isEditing;
     editedHeight = user.height;
     editedWeight = user.weight;
   }
 
-  // Save edited height and weight, and recalculate BMI
   function saveUserInfo() {
     user.height = editedHeight;
     user.weight = editedWeight;
-    bmi = (user.weight / ((user.height / 100) ** 2)).toFixed(1); // Recalculate BMI
+    bmi = (user.weight / ((user.height / 100) ** 2)).toFixed(1);
     isEditing = false;
   }
 </script>
 
 <Modal open={showModal} on:close={onClose} placement="center">
   <div class="modal-content">
-    <h1 class="info-title">User Profile</h1>
-    
-    <!-- User Basic Info -->
+    <h1 class="info-title">👤 User Profile</h1>
+
     <div class="info-section">
       <h2>User Details</h2>
       <p><strong>Name:</strong> {user.name}</p>
       <p><strong>Age:</strong> {user.age}</p>
       <p><strong>Username:</strong> {user.username}</p>
       <p><strong>Email:</strong> {user.email}</p>
-      
     </div>
 
-    <!-- Editable Health Info -->
     <div class="info-section">
       <h2>Health Info</h2>
       {#if isEditing}
         <div class="edit-section">
           <label>Height (cm):</label>
           <input type="number" bind:value={editedHeight} min="50" max="250" class="input-field" />
-
+          <br>
           <label>Weight (kg):</label>
           <input type="number" bind:value={editedWeight} min="20" max="300" class="input-field" />
+          <br>
           <button on:click={saveUserInfo} class="save-btn">Save</button>
         </div>
       {:else}
@@ -85,109 +67,99 @@
       {/if}
     </div>
 
-
-    <!-- Health Tips -->
-    <div class="info-section">
-      <h2>Health Tips</h2>
-      <ul class="tips-list">
-        {#each tips as tip}
-          <li class="tip-item">{tip}</li>
-        {/each}
-      </ul>
-    </div>
-
-    <!-- Close Button -->
-    <Button color="light" class="mt-4 close-btn" on:click={onClose}>Close</Button>
+    <Button color="light" class="close-btn" on:click={onClose}>Close</Button>
   </div>
 </Modal>
 
 <style>
   .modal-content {
-    padding: 2rem;
-    text-align: center;
-    background: #ffffff;
+    padding: 2.5rem;
+    background: #fef5d4;
     border-radius: 20px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    max-width: 500px;
+    margin: 1rem auto;
+    transition: transform 0.3s ease;
   }
 
   .info-title {
     font-size: 2rem;
-    color: #3a3a3a;
+    color: #6e5c41;
     font-weight: bold;
     margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.6s ease;
   }
 
   .info-section {
-    background: #f9f9f9;
+    background: #fff7e6;
     border-radius: 15px;
-    padding: 1rem;
+    padding: 1.5rem;
     margin-bottom: 1.5rem;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s;
+  }
+
+  .info-section:hover {
+    background-color: #ffebb5;
   }
 
   h2 {
-    font-size: 1.4rem;
-    color: #5a5a5a;
+    font-size: 1.5rem;
+    color: #4a4a4a;
     margin-bottom: 1rem;
   }
 
   .edit-btn, .save-btn {
-    background: #007bff;
-    color: white;
+    background: #ffd36b;
+    color: #4a4a4a;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
     margin-top: 1rem;
-    transition: background 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
   }
 
   .edit-btn:hover, .save-btn:hover {
-    background: #0056b3;
+    background-color: #ffcb4d;
+    transform: scale(1.05);
   }
 
   .input-field {
-    width: 80px;
-    padding: 0.4rem;
+    width: 100px;
+    padding: 0.5rem;
     margin-top: 0.5rem;
     margin-bottom: 1rem;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 10px;
     text-align: center;
     font-size: 1rem;
-  }
-
-  .tips-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    color: #3a3a3a;
-  }
-
-  .tip-item {
-    background: #e8f5e9;
-    border-radius: 8px;
-    padding: 0.6rem;
-    margin-bottom: 0.5rem;
-    transition: transform 0.3s;
-    color: #3a3a3a;
-    font-size: 0.95rem;
-  }
-
-  .tip-item:hover {
-    transform: translateY(-3px);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   }
 
   .close-btn {
     font-size: 1rem;
-    background-color: #007bff;
-    border-radius: 10px;
-    color: white;
-    transition: background 0.3s;
+    background-color: #ffd36b;
+    border-radius: 12px;
+    color: #4a4a4a;
+    padding: 0.5rem 1.5rem;
+    margin-top: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
   }
 
   .close-btn:hover {
-    background-color: #0056b3;
+    background-color: #ffcb4d;
+    transform: scale(1.05);
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
   }
 </style>

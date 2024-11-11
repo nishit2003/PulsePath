@@ -1,5 +1,10 @@
-<!-- src/components/MoodTracker.svelte -->
 <script>
+  import { Modal, Button } from "flowbite-svelte";
+  import { Bar } from 'svelte-chartjs';
+  import { Chart, registerables } from 'chart.js';
+
+  Chart.register(...registerables);
+
   let moodOptions = [
     { emoji: '😊', description: 'Happy' },
     { emoji: '😐', description: 'Neutral' },
@@ -7,26 +12,53 @@
     { emoji: '😠', description: 'Angry' },
     { emoji: '😴', description: 'Tired' }
   ];
-  
+
   let selectedMood = null;
   let moodHistory = [];
+  let showModal = false;
 
   function logMood() {
     if (selectedMood) {
-      // Log time instead of date
       const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       moodHistory = [...moodHistory, { ...selectedMood, time }];
-      selectedMood = null; // Clear selection after logging
+      selectedMood = null;
     }
   }
 
   function selectMood(mood) {
     selectedMood = mood;
   }
+
+  function toggleModal() {
+    showModal = !showModal;
+  }
+
+  // Initialize moodFrequency to an array of zeros with length equal to moodOptions
+  let moodFrequency = Array(moodOptions.length).fill(0);
+
+  // Reactive statement to update moodFrequency whenever moodHistory changes
+  $: moodFrequency = moodOptions.map((mood) => {
+    let count = 0;
+    moodHistory.forEach((entry) => {
+      if (entry.description === mood.description) count++;
+    });
+    return count;
+  });
+
+  const barOptions = {
+    responsive: true,
+    plugins: {
+      legend: { display: false }
+    },
+    scales: {
+      x: { title: { display: true, text: 'Mood' } },
+      y: { title: { display: true, text: 'Frequency' } }
+    }
+  };
 </script>
 
 <div class="mood-tracker">
-  <h2>Log Your Mood</h2>
+  <h2>Log Your Mood <button class="progress-button" on:click={toggleModal}>Show Mood Progress</button></h2>
   <div class="mood-options">
     {#each moodOptions as mood}
       <div
@@ -46,6 +78,24 @@
       <li>{entry.time} - {entry.emoji} {entry.description}</li>
     {/each}
   </ul>
+
+  <!-- Mood Progress Modal -->
+  <Modal open={showModal} on:close={toggleModal} placement="center">
+    <div class="progress-container">
+      <h1 class="progress-title">Mood Frequency</h1>
+
+      <!-- Mood Frequency Chart -->
+      <Bar {barOptions} data={{
+        labels: moodOptions.map(mood => mood.description),
+        datasets: [{
+          data: moodFrequency,
+          backgroundColor: ['#FFD700', '#FFA500', '#FF6347', '#8B0000', '#6495ED']
+        }]
+      }} />
+
+      <Button color="light" class="close-btn" on:click={toggleModal}>Close</Button>
+    </div>
+  </Modal>
 </div>
 
 <style>
@@ -66,6 +116,51 @@
     text-align: center;
   }
 
+  .progress-button {
+    background: #e1c5a1;
+    color: #4a4a4a;
+    border: none;
+    border-radius: 5px;
+    padding: 0.3rem 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+    transition: background-color 0.3s;
+  }
+
+  .progress-button:hover {
+    background: #c3a87c;
+  }
+
+  .progress-container {
+    padding: 2rem;
+    text-align: center;
+    background: #fff7e6;
+    border-radius: 20px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+    max-width: 500px;
+    margin: auto;
+  }
+
+  .progress-title {
+    font-size: 1.8rem;
+    color: #6e5c41;
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+
+  .close-btn {
+    font-size: 1rem;
+    background-color: #ffd36b;
+    border-radius: 10px;
+    color: #4a4a4a;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+  }
+
+  .close-btn:hover {
+    background-color: #ffcb4d;
+  }
   .mood-options {
     display: flex;
     gap: 1rem;

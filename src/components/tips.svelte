@@ -1,6 +1,6 @@
 <!-- src/components/HealthTips.svelte -->
 <script>
-  import { Modal, Button } from "flowbite-svelte"; // Import Modal from Flowbite
+  import { Modal, Button } from "flowbite-svelte";
   
   export let tips = [
     "Stay hydrated! Aim for at least 8 cups of water each day.",
@@ -51,7 +51,7 @@
   ];
   
   export let showModal = false;
-  export let onClose; // Function to close the modal
+  export let onClose;
 
   // Random tips array to display
   let randomTips = [];
@@ -69,63 +69,99 @@
 
 <Modal open={showModal} on:close={onClose} placement="center">
   <div class="tips-container">
-    <h1 class="tips-title">Health Tips</h1>
+    <h1 class="tips-title">💡 Daily Health Tips</h1>
     <ul class="tips-list">
       {#each randomTips as tip}
         <li class="tip-item">{tip}</li>
       {/each}
     </ul>
-    <Button color="light" class="close-btn mt-4" on:click={onClose}>Close</Button>
+    <div class="button-group">
+      <Button color="light" class="fetch-btn" on:click={getRandomTips}>🌟 New Tips</Button>
+      <Button color="light" class="close-btn" on:click={onClose}>Close</Button>
+    </div>
   </div>
 </Modal>
 
 <style>
   .tips-container {
     padding: 2rem;
-    background: #ffffff;
+    background: #fff7e6;
     border-radius: 20px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
     text-align: center;
     max-width: 500px;
     margin: 1rem auto;
+    transition: transform 0.3s ease;
+    height: 600px;
   }
 
   .tips-title {
-    font-size: 1.8rem;
-    color: #4a4a4a;
+    font-size: 2rem;
+    color: #6e5c41;
     font-weight: bold;
     margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.6s ease;
   }
 
   .tips-list {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    max-height: 400px;
+    overflow-y: auto;
   }
 
   .tip-item {
     font-size: 1rem;
     margin-bottom: 0.7rem;
     padding: 0.7rem;
-    background: #e8f5e9;
-    border-radius: 10px;
-    color: #333;
+    background: #fef5d4;
+    border-radius: 12px;
+    color: #4a4a4a;
     transition: transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   }
 
   .tip-item:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
+    background: #ffebb5;
   }
 
-  .close-btn {
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .fetch-btn, .close-btn {
     font-size: 1rem;
-    background-color: #007bff;
-    border-radius: 10px;
-    color: white;
-    transition: background 0.3s;
+    background-color: #ffd36b;
+    color: #4a4a4a;
+    border-radius: 12px;
+    padding: 0.5rem 1.2rem;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .fetch-btn:hover {
+    background-color: #ffcb4d;
+    transform: scale(1.05);
   }
 
   .close-btn:hover {
-    background-color: #0056b3;
+    background-color: #f5c16d;
+    transform: scale(1.05);
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
   }
 </style>
