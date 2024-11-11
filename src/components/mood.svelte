@@ -107,6 +107,7 @@
     margin-bottom: 2rem;
     width: 400px;
     margin-left: 15px;
+    height: fit-content;
   }
 
   h2 {
