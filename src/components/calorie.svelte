@@ -1,4 +1,5 @@
 <script>
+  // @ts-ignore
   import { writable } from 'svelte/store';
 
   // Array to store calorie entries with timestamp
@@ -14,6 +15,7 @@
 
   // Function to log a new calorie entry
   function logCalories() {
+    // @ts-ignore
     if (newCalorieInput && !isNaN(newCalorieInput)) {
       const calories = parseInt(newCalorieInput);
       const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -33,6 +35,7 @@
 
   // Function to save the edited calorie entry
   function saveEdit(index) {
+    // @ts-ignore
     if (editCalorieInput && !isNaN(editCalorieInput)) {
       const newCalories = parseInt(editCalorieInput);
       totalCalories = totalCalories - calorieEntries[index].calories + newCalories; // Update total calories

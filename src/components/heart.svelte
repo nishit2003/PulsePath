@@ -27,6 +27,7 @@
     text-align: center;
     width: 400px;
     margin-left: 15px;
+    height: 417px;
   }
 
   h2 {

@@ -1,5 +1,6 @@
 <script>
 	import Step from './components/step.svelte';
+  // @ts-ignore
   import LoginComponent from "./components/login.svelte";
   import Navbar from "./components/navbar.svelte";
   import Todo from "./components/todo.svelte";
@@ -7,10 +8,8 @@
   import Sleep from "./components/sleep.svelte";
   import Heart from "./components/heart.svelte";
   import Calorie from './components/calorie.svelte';
+  import Footer from './components/footer.svelte';
   
-  // let isAuthenticated = false;
-  // let user = null;
-
   let isAuthenticated = true; // Set to true by default for development
   let user = { Name: "Developer" }; // Set a default user object for development
 
@@ -20,32 +19,48 @@
   };
 </script>
 
-<!-- <div class="app-wrapper"> -->
-  <!-- Navbar at the top of the page -->
+<div class="app-wrapper">
   {#if isAuthenticated}
-  <Navbar {isAuthenticated} />
-    <div class="grid">
-      <!-- Show Navbar only if authenticated -->
-      <Todo />
-      <Mood />
-      <Sleep />
-      <Heart />
-      <Step />
-      <Calorie />
+    <Navbar {isAuthenticated} />
+    <div class="main-content">
+      <div class="grid">
+        <Todo />
+        <Mood />
+        <Sleep />
+        <Heart />
+        <Step />
+        <Calorie />
+      </div>
     </div>
+    <Footer />
   {/if}
 
-  <div class="app-container">
-    {#if !isAuthenticated}
+  {#if !isAuthenticated}
+    <div class="app-container">
       <div class="left-half">
         <LoginComponent on:login={handleLogin} />
       </div>
       <div class="right-half"></div>
-    {/if}
-  </div>
-<!-- </div> -->
+    </div>
+  {/if}
+</div>
 
 <style>
+  /* Make the app-wrapper take up the full viewport height */
+  .app-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* main-content will expand to fill available space */
+  .main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 70px; /* Prevents overlap with fixed footer */
+  }
+
   .app-container {
     display: flex;
     flex-direction: row;
@@ -54,6 +69,7 @@
     min-height: 100vh;
     color: black;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 20px;
   }
 
   .left-half {
@@ -73,30 +89,18 @@
     background-repeat: no-repeat;
   }
 
-  .welcome-message {
-    margin-top: 2rem;
-    font-size: 1.5rem;
-    text-align: center;
-  }
-
-  /* .app-wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  } */
-
-  .app-container {
-    flex: 1;
-    display: flex;
-  }
   .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columns */
     grid-template-rows: repeat(2, auto); /* 2 rows */
     gap: 1rem; /* Space between items */
-    padding: 0%;  
-    justify-items: center
+    justify-items: center;
+    margin: 50px;
   }
 
-  /* object-fit: cover; */
+  .welcome-message {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    text-align: center;
+  }
 </style>
