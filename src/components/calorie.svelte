@@ -1,79 +1,85 @@
 <script>
-  // @ts-ignore
-  import { writable } from 'svelte/store';
+  import { Modal, Button } from "flowbite-svelte";
+  import { Line } from 'svelte-chartjs';
+  import { Chart, registerables } from 'chart.js';
+
+  Chart.register(...registerables);
 
   // Array to store calorie entries with timestamp
   let calorieEntries = [];
   let totalCalories = 0;
-
-  // For managing new entry input
-  let newCalorieInput = "";
-
-  // Edit state management
-  let isEditing = Array(0).fill(false); // Tracks if an entry is being edited
+  let newCalorieInput = ""; // For new entry input
+  let isEditing = []; // Tracks edit state for each entry
   let editCalorieInput = ""; // Temporary storage for edited calorie value
+  let showModal = false; // Track modal visibility for chart
+  let dailyGoal = 2000; // Dummy calorie goal
 
-  // Function to log a new calorie entry
+  function toggleModal() {
+    showModal = !showModal;
+  }
+
   function logCalories() {
-    // @ts-ignore
     if (newCalorieInput && !isNaN(newCalorieInput)) {
       const calories = parseInt(newCalorieInput);
       const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      
       calorieEntries = [...calorieEntries, { time: timestamp, calories }];
       totalCalories += calories;
-      newCalorieInput = ""; // Clear the input after logging
-      isEditing = Array(calorieEntries.length).fill(false); // Update edit state array length
+      newCalorieInput = "";
+      isEditing = Array(calorieEntries.length).fill(false);
     }
   }
 
-  // Function to toggle edit mode for a specific entry
   function toggleEdit(index) {
-    isEditing = isEditing.map((_, i) => i === index ? !isEditing[i] : false); // Only one entry can be edited at a time
-    editCalorieInput = calorieEntries[index].calories; // Set the current calorie value in edit input
+    isEditing = isEditing.map((_, i) => i === index ? !isEditing[i] : false);
+    editCalorieInput = calorieEntries[index].calories;
   }
 
-  // Function to save the edited calorie entry
   function saveEdit(index) {
-    // @ts-ignore
     if (editCalorieInput && !isNaN(editCalorieInput)) {
       const newCalories = parseInt(editCalorieInput);
-      totalCalories = totalCalories - calorieEntries[index].calories + newCalories; // Update total calories
-      calorieEntries[index].calories = newCalories; // Update the entry's calories
-      isEditing[index] = false; // Exit editing mode
+      totalCalories = totalCalories - calorieEntries[index].calories + newCalories;
+      calorieEntries[index].calories = newCalories;
+      isEditing[index] = false;
     }
   }
+
+  const lineOptions = {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: (context) => `${context.raw} kcal`,
+        },
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: dailyGoal,
+        title: { display: true, text: 'Calories' },
+      },
+      x: { title: { display: true, text: 'Time' } },
+    },
+  };
 </script>
 
 <div class="calorie-counter">
   <div class="header">
-    <h2>Calorie Intake</h2>
+    <h2>Calorie Intake <button on:click={toggleModal} class="progress-btn">Show Progress</button></h2>
   </div>
 
-  <!-- Input and button for new calorie entry -->
   <div class="entry-input">
-    <input
-      type="number"
-      bind:value={newCalorieInput}
-      placeholder="Enter calories"
-      min="0"
-      class="calorie-input"
-    />
+    <input type="number" bind:value={newCalorieInput} placeholder="Enter calories" min="0" class="calorie-input" />
     <button on:click={logCalories} class="log-btn">Log Calories</button>
   </div>
 
-  <!-- Display each calorie entry with timestamp and edit functionality -->
   <ul class="calorie-list">
     {#each calorieEntries as entry, index}
       <li>
         {entry.time} - 
         {#if isEditing[index]}
-          <input
-            type="number"
-            bind:value={editCalorieInput}
-            min="0"
-            class="edit-input"
-          /> kcal
+          <input type="number" bind:value={editCalorieInput} min="0" class="edit-input" /> kcal
           <button on:click={() => saveEdit(index)} class="save-btn">Save</button>
         {:else}
           {entry.calories} kcal
@@ -83,8 +89,29 @@
     {/each}
   </ul>
 
-  <!-- Display total calorie intake for the day -->
   <p class="total-calories">Total Intake Today: {totalCalories} kcal</p>
+
+  <!-- Progress Modal -->
+  <Modal open={showModal} on:close={toggleModal} placement="center">
+    <div class="progress-container">
+      <h1 class="progress-title">Calorie Intake Progress</h1>
+
+      <!-- Line Chart for Calorie Data -->
+      <Line {lineOptions} data={{
+        labels: calorieEntries.map(entry => entry.time),
+        datasets: [{
+          data: calorieEntries.map(entry => entry.calories),
+          label: "Calories",
+          borderColor: "#ff8c00",
+          backgroundColor: "rgba(255, 140, 0, 0.2)",
+          fill: true,
+          tension: 0.4,
+        }]
+      }} />
+
+      <Button color="light" class="close-btn" on:click={toggleModal}>Close</Button>
+    </div>
+  </Modal>
 </div>
 
 <style>
@@ -106,6 +133,22 @@
   h2 {
     font-size: 1.5rem;
     color: #ff8c00;
+  }
+
+  .progress-btn {
+    background: #ff8c00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+    transition: background-color 0.3s;
+  }
+
+  .progress-btn:hover {
+    background: #e67e00;
   }
 
   .entry-input {
@@ -135,13 +178,6 @@
 
   .log-btn:hover {
     background: #e67e00;
-  }
-
-  .calorie-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    color: #333;
   }
 
   .calorie-list li {
@@ -182,5 +218,35 @@
     font-size: 1.2rem;
     color: #ff8c00;
     margin-top: 0.5rem;
+  }
+
+  .progress-container {
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    max-width: 500px;
+    margin: auto;
+  }
+
+  .progress-title {
+    font-size: 1.8rem;
+    color: #ff8c00;
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+
+  .close-btn {
+    font-size: 1rem;
+    background-color: #ff8c00;
+    border-radius: 10px;
+    color: white;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+  }
+
+  .close-btn:hover {
+    background-color: #e67e00;
   }
 </style>
