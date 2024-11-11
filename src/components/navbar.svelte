@@ -1,12 +1,24 @@
 <!-- src/components/Navbar.svelte -->
 <script>
   import UserInfo from './UserInfo.svelte'; // Import the UserInfo component
+  import Tips from './tips.svelte';
+  import Goals from './goals.svelte';
 
   export let isAuthenticated = false;
   let showUserInfo = false; // State to control the UserInfo modal visibility
+  let showTips = false;
+  let showGoals = false; // State to control the Tips modal visibility
 
   const toggleUserInfo = () => {
     showUserInfo = !showUserInfo;
+  };
+
+  const toggleTips = () => {
+    showTips = !showTips;
+  };
+
+  const toggleGoals = () => {
+    showGoals = !showGoals;
   };
 </script>
 
@@ -16,6 +28,8 @@
     <!-- svelte-ignore a11y-invalid-attribute -->
     <a href="#" on:click|preventDefault={toggleUserInfo}>User Info</a> <!-- Toggle modal on click -->
     <a href="/dashboard">Change Date</a>
+    <a href="/dashboard" on:click|preventDefault={toggleTips}>Tips</a>
+    <a href="/dashboard" on:click|preventDefault={toggleGoals}>Goals</a>
     <a href="/dashboard">Info</a>
     <a href="/logout">Logout</a>
   </div>
@@ -24,6 +38,15 @@
 <!-- Render UserInfo component when showUserInfo is true -->
 {#if showUserInfo}
   <UserInfo showModal={showUserInfo} onClose={toggleUserInfo} />
+{/if}
+
+<!-- Render Tips component when showTips is true -->
+{#if showTips}
+  <Tips showModal={showTips} onClose={toggleTips} />
+{/if}
+<!-- Render Goals component when showGoals is true -->
+{#if showGoals}
+  <Goals showModal={showGoals} onClose={toggleGoals} />
 {/if}
 
 <style>

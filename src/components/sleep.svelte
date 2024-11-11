@@ -1,6 +1,6 @@
 <script>
   // Generate random sleep data for the past 7 days
-  let sleepData = Array.from({ length: 7 }, () => Math.floor(Math.random() * (9 - 4 + 1)) + 4); // Random sleep between 4 to 9 hours
+  let sleepData = Array.from({ length: 6 }, () => Math.floor(Math.random() * (9 - 4 + 1)) + 4); // Random sleep between 4 to 9 hours
   let averageSleep = (sleepData.reduce((sum, hours) => sum + hours, 0) / sleepData.length).toFixed(1);
 
   let isEditing = Array(7).fill(false); // Track editing state for each day
@@ -54,6 +54,7 @@
     text-align: center;
     width: 400px;
     margin-left: 15px;
+    height: 417px;
   }
 
   h2 {
