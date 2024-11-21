@@ -1,7 +1,7 @@
 <!-- src/components/Navbar.svelte -->
 <script>
   // @ts-ignore
-  import UserInfo from './UserInfo.svelte'; // Import the UserInfo component
+  import UserInfo from './userinfo.svelte'; // Import the UserInfo component
   import Tips from './tips.svelte';
   import Goals from './goals.svelte';
   import Date from './date.svelte';
