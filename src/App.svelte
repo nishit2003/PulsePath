@@ -10,8 +10,8 @@
   import Calorie from './components/calorie.svelte';
   import Footer from './components/footer.svelte';
   
-  let isAuthenticated = true; // Set to true by default for development
-  let user = { Name: "Developer" }; // Set a default user object for development
+  let isAuthenticated = false; // Set to true by default for development
+  // let user = { Name: "Developer" }; // Set a default user object for development
 
   const handleLogin = (event) => {
     isAuthenticated = true;
