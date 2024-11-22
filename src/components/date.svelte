@@ -10,6 +10,7 @@
 
   function saveDate() {
     console.log("Selected Date:", selectedDate); // Replace with actual save logic if needed
+    alert("Date saved successfully!");
     onClose(); // Close the modal
   }
 </script>

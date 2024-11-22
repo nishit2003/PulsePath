@@ -13,6 +13,7 @@
 
   function saveGoals() {
     console.log("Goals saved:", { sleepGoal, waterGoal, stepsGoal, caloriesGoal });
+    alert("Goals saved successfully!");
     onClose(); // Close the modal
   }
 </script>

@@ -32,6 +32,7 @@
     user.weight = editedWeight;
     bmi = (user.weight / ((user.height / 100) ** 2)).toFixed(1);
     isEditing = false;
+    alert("User info saved successfully!");
   }
 </script>
 
