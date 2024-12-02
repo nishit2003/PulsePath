@@ -57,7 +57,7 @@
   };
 </script>
 
-<div class="mood-tracker">
+<div id = "mood" class="mood-tracker">
   <h2>Log Your Mood <button class="progress-button" on:click={toggleModal}>Show Mood Progress</button></h2>
   <div class="mood-options">
     {#each moodOptions as mood}

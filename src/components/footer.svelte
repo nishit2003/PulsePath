@@ -21,7 +21,7 @@
     text-align: center;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 0.9rem;
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
   }
 

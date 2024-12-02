@@ -9,6 +9,8 @@
   import Heart from "./components/heart.svelte";
   import Calorie from './components/calorie.svelte';
   import Footer from './components/footer.svelte';
+  import Hero from './components/hero.svelte';
+  import Pricing from './components/pricing.svelte';
   
   let isAuthenticated = false; // Set to true by default for development
   // let user = { Name: "Developer" }; // Set a default user object for development
@@ -22,6 +24,8 @@
 <div class="app-wrapper">
   {#if isAuthenticated}
     <Navbar {isAuthenticated} />
+    <Hero />
+    <Pricing />
     <div class="main-content">
       <div class="grid">
         <Todo />
