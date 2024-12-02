@@ -55,7 +55,7 @@
   .plans {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 90px;
     flex-wrap: wrap;
   }
 
@@ -126,7 +126,7 @@
   }
 
   .cta button:hover {
-    background-color: #e9edc9;
+    background-color: #f5ebe2;
     color: #333;
   }
 
@@ -146,11 +146,11 @@
 
 <div id = "pricing" class="pricing-container">
   <h1>Choose your plan</h1>
-  <p>Penzu is always free but our Pro plans offer more flexibility, customization, and features to maximize your journaling experience.</p>
+  <p>PulsePath is always free but our Pro plans offer more flexibility, customization, and features to maximize your journaling experience.</p>
 
   <!-- Toggle for Monthly/Yearly -->
   <div class="toggle-container">
-    <span>Pay Monthly</span>
+    <!-- <span>Pay Monthly</span> -->
     <div class="toggle" on:click={() => (isYearly = !isYearly)}>
       <span class={!isYearly ? 'active' : ''}>Pay Monthly</span>
       <span class={isYearly ? 'active' : ''}>Pay Yearly (-60%)</span>
@@ -178,7 +178,7 @@
     <!-- Pro Plan -->
     <div class="plan">
       <div class="most-popular">Most Popular</div>
-      <h2>Penzu Pro</h2>
+      <h2>PulsePath Pro</h2>
       <p class="price">$19.99 <span>/ {isYearly ? "year" : "month"}</span></p>
       <p>Make it yours with customization, plus pro-active features to keep you writing.</p>
       <ul class="features">
@@ -196,7 +196,7 @@
 
     <!-- Pro+ Plan -->
     <div class="plan">
-      <h2>Penzu Pro+</h2>
+      <h2>PulsePath Pro+</h2>
       <p class="price">$49.99 <span>/ {isYearly ? "year" : "month"}</span></p>
       <p>The most powerful suite of tools for journaling.</p>
       <ul class="features">

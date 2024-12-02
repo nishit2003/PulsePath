@@ -107,7 +107,8 @@
     margin-bottom: 2rem;
     width: 400px;
     margin-left: 15px;
-    height: fit-content;
+    /* height: fit-content; */
+    height: 447.9px;
   }
 
   h2 {

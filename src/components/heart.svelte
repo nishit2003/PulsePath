@@ -72,7 +72,7 @@
     text-align: center;
     width: 400px;
     margin-left: 15px;
-    height: fit-content;
+    /* height: fit-content; */
   }
 
   h2 {
