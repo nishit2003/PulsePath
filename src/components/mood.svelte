@@ -165,7 +165,7 @@
   }
   .mood-options {
     display: flex;
-    gap: 1rem;
+    gap: .1rem;
     justify-content: space-around;
     margin-bottom: 1rem;
     flex-wrap: wrap;
@@ -175,13 +175,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0.5rem;
+    padding: 0.2rem;
     cursor: pointer;
     background: #ffffff;
     border-radius: 8px;
     transition: transform 0.2s, background-color 0.2s;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 70px;
+    width: 65px;
   }
 
   .mood-option.selected {
@@ -229,7 +229,7 @@
     padding: 0;
     margin: 0;
     text-align: left;
-    max-height: 100px;
+    max-height: 150px;
     overflow-y: auto;
   }
 
