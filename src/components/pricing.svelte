@@ -1,5 +1,55 @@
 <script>
   let isYearly = true; // Toggle between monthly and yearly pricing
+
+  // Pricing data
+  const plans = [
+    {
+      name: "Basic",
+      priceMonthly: "Free",
+      priceYearly: "Free",
+      description: "Get started with our free plan. No credit card required.",
+      features: [
+        "Unlimited entries",
+        "Mobile apps",
+        "Basic journal covers and fonts",
+        "Simple writing reminders",
+      ],
+      cta: "Get started →",
+      mostPopular: false,
+    },
+    {
+      name: "PulsePath Pro",
+      priceMonthly: "$19.99",
+      priceYearly: "$79.99",
+      description:
+        "Make it yours with customization, plus pro-active features to keep you writing.",
+      features: [
+        "Encryption locking",
+        "Custom journal covers, fonts & colors",
+        "Entry tagging",
+        "PDF export",
+        "Writing prompts",
+        "Write via email (Penzu Post)",
+      ],
+      cta: "Go Pro →",
+      mostPopular: true,
+    },
+    {
+      name: "PulsePath Pro+",
+      priceMonthly: "$49.99",
+      priceYearly: "$199.99",
+      description: "The most powerful suite of tools for journaling.",
+      features: [
+        "Premium handwritten fonts",
+        "Fullscreen zen-mode",
+        "Versions & entry recovery",
+        "Premium support",
+        "Military-grade encryption locking",
+      ],
+      cta: "Go Pro+ →",
+      mostPopular: false,
+    },
+  ];
 </script>
 
 <style>
@@ -148,71 +198,43 @@
   }
 </style>
 
-<div id = "pricing" class="pricing-container">
+<div id="pricing" class="pricing-container">
   <h1>Choose your plan</h1>
-  <p>PulsePath is always free but our Pro plans offer more flexibility, customization, and features to maximize your journaling experience.</p>
+  <p>
+    PulsePath is always free but our Pro plans offer more flexibility,
+    customization, and features to maximize your journaling experience.
+  </p>
 
   <!-- Toggle for Monthly/Yearly -->
   <div class="toggle-container">
-    <!-- <span>Pay Monthly</span> -->
     <div class="toggle" on:click={() => (isYearly = !isYearly)}>
-      <span class={!isYearly ? 'active' : ''}>Pay Monthly</span>
-      <span class={isYearly ? 'active' : ''}>Pay Yearly (-60%)</span>
+      <span class={!isYearly ? "active" : ""}>Pay Monthly</span>
+      <span class={isYearly ? "active" : ""}>Pay Yearly (-60%)</span>
     </div>
   </div>
 
   <!-- Plans -->
   <div class="plans">
-    <!-- Basic Plan -->
-    <div class="plan">
-      <h2>Basic</h2>
-      <p class="price">Free</p>
-      <p>Get started with our free plan. No credit card required.</p>
-      <ul class="features">
-        <li>Unlimited entries</li>
-        <li>Mobile apps</li>
-        <li>Basic journal covers and fonts</li>
-        <li>Simple writing reminders</li>
-      </ul>
-      <div class="cta">
-        <button>Get started →</button>
+    {#each plans as plan}
+      <div class="plan">
+        {#if plan.mostPopular}
+          <div class="most-popular">Most Popular</div>
+        {/if}
+        <h2>{plan.name}</h2>
+        <p class="price">
+          {isYearly ? plan.priceYearly : plan.priceMonthly}
+          <span>/ {isYearly ? "year" : "month"}</span>
+        </p>
+        <p>{plan.description}</p>
+        <ul class="features">
+          {#each plan.features as feature}
+            <li>{feature}</li>
+          {/each}
+        </ul>
+        <div class="cta">
+          <button>{plan.cta}</button>
+        </div>
       </div>
-    </div>
-
-    <!-- Pro Plan -->
-    <div class="plan">
-      <div class="most-popular">Most Popular</div>
-      <h2>PulsePath Pro</h2>
-      <p class="price">$19.99 <span>/ {isYearly ? "year" : "month"}</span></p>
-      <p>Make it yours with customization, plus pro-active features to keep you writing.</p>
-      <ul class="features">
-        <li>Encryption locking</li>
-        <li>Custom journal covers, fonts & colors</li>
-        <li>Entry tagging</li>
-        <li>PDF export</li>
-        <li>Writing prompts</li>
-        <li>Write via email (Penzu Post)</li>
-      </ul>
-      <div class="cta">
-        <button>Go Pro →</button>
-      </div>
-    </div>
-
-    <!-- Pro+ Plan -->
-    <div class="plan">
-      <h2>PulsePath Pro+</h2>
-      <p class="price">$49.99 <span>/ {isYearly ? "year" : "month"}</span></p>
-      <p>The most powerful suite of tools for journaling.</p>
-      <ul class="features">
-        <li>Premium handwritten fonts</li>
-        <li>Fullscreen zen-mode</li>
-        <li>Versions & entry recovery</li>
-        <li>Premium support</li>
-        <li>Military-grade encryption locking</li>
-      </ul>
-      <div class="cta">
-        <button>Go Pro+ →</button>
-      </div>
-    </div>
+    {/each}
   </div>
 </div>
