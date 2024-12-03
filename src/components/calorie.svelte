@@ -92,7 +92,7 @@
   <p class="total-calories">Total Intake Today: {totalCalories} kcal</p>
 
   <!-- Progress Modal -->
-  <Modal open={showModal} on:close={toggleModal} placement="center">
+  <Modal open={showModal} placement="center">
     <div class="progress-container">
       <h1 class="progress-title">Calorie Intake Progress</h1>
 

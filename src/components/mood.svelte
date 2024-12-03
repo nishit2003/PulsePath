@@ -80,7 +80,7 @@
   </ul>
 
   <!-- Mood Progress Modal -->
-  <Modal open={showModal} on:close={toggleModal} placement="center">
+  <Modal open={showModal} placement="center">
     <div class="progress-container">
       <h1 class="progress-title">Mood Frequency</h1>
 
@@ -108,7 +108,7 @@
     width: 400px;
     margin-left: 15px;
     /* height: fit-content; */
-    height: 447.9px;
+    height: 497.9px;
   }
 
   h2 {
@@ -229,7 +229,7 @@
     padding: 0;
     margin: 0;
     text-align: left;
-    max-height: 150px;
+    max-height: 165px;
     overflow-y: auto;
   }
 

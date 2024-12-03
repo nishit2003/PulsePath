@@ -42,7 +42,7 @@
   <p class="total-water-intake">Total Water Intake: {totalWaterIntake} cups / {targetGoal} cups</p>
 
   <!-- Water Intake Progress Modal -->
-  <Modal open={showModal} on:close={toggleModal} placement="center">
+  <Modal open={showModal}  placement="center">
     <div class="progress-container">
       <h1 class="progress-title">Water Intake Progress</h1>
       

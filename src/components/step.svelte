@@ -82,7 +82,7 @@
   <p class="total-steps">Total Steps: {totalSteps}</p>
   <p class="average-steps">Average Steps: {averageSteps}</p>
 
-  <Modal open={showModal} on:close={toggleModal} placement="center">
+  <Modal open={showModal} placement="center">
     <div class="progress-container">
       <h1 class="progress-title">Steps Progress Radar</h1>
       <Radar {radarOptions} data={{
