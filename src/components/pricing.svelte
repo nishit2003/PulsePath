@@ -3,11 +3,15 @@
 </script>
 
 <style>
+  :global(html) {
+    scroll-behavior: smooth;
+  }
   .pricing-container {
-    background-color: #fefae0;
+    background-color: #cac389;
     padding: 40px 20px;
     text-align: center;
     font-family: Arial, sans-serif;
+    height: 100vh;
   }
 
   h1 {

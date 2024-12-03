@@ -6,20 +6,21 @@
   :global(body) {
     margin: 0;
     scroll-behavior: smooth;
-    background-color: #FEFAE0; /* Base background color */
+    background-color: #E9EDC9; /* Base background color */
     font-family: Arial, sans-serif;
     color: #333;
   }
 
   .container {
     margin-left: 110px;
-    background-color: #E9EDC9; /* Soft cream */
+    /* background-color: #E9EDC9; Soft cream */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 20px;
     width: 100%;
+    height: 100vh;
   }
 
   .content {
