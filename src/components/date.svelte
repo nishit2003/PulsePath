@@ -1,4 +1,3 @@
-<!-- src/components/ChangeDate.svelte -->
 <script>
   import { Modal, Button } from "flowbite-svelte";
 
@@ -8,16 +7,22 @@
   // State to hold the selected date
   let selectedDate = new Date().toISOString().substring(0, 10); // Default to today’s date
 
-  function saveDate() {
-    console.log("Selected Date:", selectedDate); // Replace with actual save logic if needed
-    alert("Date saved successfully!");
+  function handleSubmit() {
+    const randomOutput = Math.random() > 0.5; // Simulate whether data exists
+
+    if (randomOutput) {
+      alert("Entries for that date retrieved successfully!");
+    } else {
+      alert("No data exists for that date.");
+    }
     onClose(); // Close the modal
   }
 </script>
 
 <Modal open={showModal} on:close={onClose} placement="center">
   <div class="change-date-container">
-    <h1 class="modal-title">🗓️ Change Your Date</h1>
+    <h1 class="modal-title">Want to change the date of login?</h1>
+
     <div class="date-picker">
       <label for="date">Select a new date:</label>
       <input
@@ -28,36 +33,30 @@
         max="2030-12-31"
       />
     </div>
-    <Button color="light" class="save-btn mt-4" on:click={saveDate}>✨ Save Date</Button>
+
+    <Button color="light" class="submit-btn mt-4" on:click={handleSubmit}>Submit</Button>
+
+    <p class="note mt-4">* The output is random since we actually don’t have a database to store the data.</p>
   </div>
 </Modal>
 
 <style>
   .change-date-container {
-    padding: 2.5rem;
-    background: linear-gradient(145deg, #e3f2fd, #ffffff);
-    border-radius: 20px;
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+    padding: 2rem;
+    background: linear-gradient(145deg, #f5f5dc, #fff8dc);
+    border-radius: 12px;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
     max-width: 400px;
-    margin: 1rem auto;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-  }
-
-  .change-date-container:hover {
-    transform: scale(1.02);
-    background-color: #f8f9fa;
+    margin: 0 auto;
+    font-family: 'Arial', sans-serif;
   }
 
   .modal-title {
-    font-size: 2rem;
-    color: #3a3a3a;
+    font-size: 1.5rem;
     font-weight: 600;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: fadeIn 0.6s ease;
+    margin-bottom: 1rem;
+    color: #3e2723;
   }
 
   .date-picker {
@@ -65,55 +64,42 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 1.5rem;
-    animation: slideIn 0.5s ease;
   }
 
   .date-picker label {
-    font-size: 1.1rem;
-    color: #333;
+    font-size: 1rem;
     margin-bottom: 0.5rem;
-    font-weight: 500;
+    color: #6d4c41;
   }
 
   .date-picker input {
-    padding: 0.6rem;
-    border: 1px solid #bbb;
+    padding: 0.5rem;
+    border: 1px solid #d2b48c;
     border-radius: 8px;
-    text-align: center;
-    font-size: 1.1rem;
-    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 250px;
+    background-color: #fffaf0;
+    color: #3e2723;
   }
 
-  .date-picker input:focus {
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  .submit-btn {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background-color: #d2b48c;
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
   }
 
-  .save-btn {
-    font-size: 1.1rem;
-    background-color: #6c63ff;
-    color: #fff;
-    border-radius: 15px;
-    padding: 0.5rem 1.2rem;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .submit-btn:hover {
+    background-color: #b8860b;
   }
 
-  .save-btn:hover {
-    background-color: #594fbf;
-    transform: scale(1.05);
-  }
-
-  @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-
-  @keyframes slideIn {
-    0% { transform: translateY(20px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
+  .note {
+    font-size: 0.875rem;
+    color: #8b4513;
+    margin-top: 1rem;
   }
 </style>

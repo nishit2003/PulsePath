@@ -7,7 +7,9 @@
   <p class="footer-text">Made with ❤️ by Grover</p>
   <div class="footer-links">
     <a href="https://github.com/nishit2003/PulsePath" target="_blank" rel="noopener noreferrer">See Course Code</a>
-    <a href="" target="_blank" rel="noopener noreferrer">Docs</a>
+    <a href="https://docs.google.com/document/d/1Qkmnb59ZncxB4BHhOTTnE4vMURVxmPz7VLR_0fzEnUo/edit?usp=sharingLinks to an external site.
+
+" target="_blank" rel="noopener noreferrer">Docs</a>
     <a href="mailto:grovernt@mail.uc.edu" target="_blank" rel="noopener noreferrer">Contact Support</a>
   </div>
 </footer>
