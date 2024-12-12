@@ -10,10 +10,25 @@
   let totalWaterIntake = waterIntakeData.reduce((sum, cups) => sum + parseFloat(cups), 0).toFixed(1);
   let targetGoal = 8; // Target goal in cups
 
+  let isEditing = Array(7).fill(false); // Track editing state for each hour
+  let newCups = Array(7).fill(null); // Temporary storage for new cups during editing
   let showModal = false;
 
   function toggleModal() {
     showModal = !showModal;
+  }
+
+  function toggleEdit(index) {
+    isEditing[index] = !isEditing[index];
+    newCups[index] = waterIntakeData[index]; // Set the current cups as the default value
+  }
+
+  function saveCups(index) {
+    if (newCups[index] !== null) {
+      waterIntakeData[index] = Number(newCups[index]).toFixed(1);
+      totalWaterIntake = waterIntakeData.reduce((sum, cups) => sum + parseFloat(cups), 0).toFixed(1);
+      isEditing[index] = false;
+    }
   }
 
   const lineOptions = {
@@ -31,10 +46,19 @@
 <div class="water-tracker">
   <h2>Last 7 Hours Water Intake <button class="progress-button" on:click={toggleModal}>Show Progress</button></h2>
 
-  <!-- Display water intake data for each hour -->
+  <!-- Display water intake data for each hour with edit functionality -->
   <ul class="water-list">
     {#each waterIntakeData as cups, index}
-      <li>Hour {index + 1}: {cups} cups</li>
+      <li>
+        Hour {index + 1}:
+        {#if isEditing[index]}
+          <input type="number" bind:value={newCups[index]} min="0" max="2" step="0.1" class="edit-input" /> cups
+          <button on:click={() => saveCups(index)} class="save-btn">Save</button>
+        {:else}
+          {cups} cups
+          <button on:click={() => toggleEdit(index)} class="edit-btn">Edit</button>
+        {/if}
+      </li>
     {/each}
   </ul>
 
@@ -42,7 +66,7 @@
   <p class="total-water-intake">Total Water Intake: {totalWaterIntake} cups / {targetGoal} cups</p>
 
   <!-- Water Intake Progress Modal -->
-  <Modal open={showModal}  placement="center">
+  <Modal open={showModal} placement="center">
     <div class="progress-container">
       <h1 class="progress-title">Water Intake Progress</h1>
       
@@ -50,6 +74,7 @@
       <Line {lineOptions} data={{
         labels: Array.from({ length: 7 }, (_, i) => `Hour ${i + 1}`),
         datasets: [{
+          label: 'Water Intake',
           data: waterIntakeData,
           borderColor: '#ffbf47',
           backgroundColor: '#ffedd5',

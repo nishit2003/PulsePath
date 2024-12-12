@@ -48,7 +48,7 @@
   const barOptions = {
     responsive: true,
     plugins: {
-      legend: { display: false }
+      legend: { display: true }
     },
     scales: {
       x: { title: { display: true, text: 'Mood' } },
@@ -88,6 +88,7 @@
       <Bar {barOptions} data={{
         labels: moodOptions.map(mood => mood.description),
         datasets: [{
+          label: 'Mood Frequency',
           data: moodFrequency,
           backgroundColor: ['#FFD700', '#FFA500', '#FF6347', '#8B0000', '#6495ED']
         }]

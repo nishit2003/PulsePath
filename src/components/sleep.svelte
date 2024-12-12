@@ -73,6 +73,7 @@
       <Bar {barOptions} data={{
         labels: Array.from({ length: 7 }, (_, i) => `Day ${i + 1}`),
         datasets: [{
+          label: 'Hours Slept',
           data: sleepData,
           backgroundColor: '#4db6ac',
         }]

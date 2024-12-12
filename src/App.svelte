@@ -11,6 +11,8 @@
   import Footer from './components/footer.svelte';
   import Hero from './components/hero.svelte';
   import Pricing from './components/pricing.svelte';
+  // import Bot from './components/chatbot.svelte';
+  import ChatbotWrapper from './components/chatbotWrapper.svelte';
   
   let isAuthenticated = false; // Set to true by default for development
   // let user = { Name: "Developer" }; // Set a default user object for development
@@ -36,6 +38,7 @@
         <Calorie />
       </div>
     </div>
+    <ChatbotWrapper />
     <Footer />
   {/if}
 
@@ -107,4 +110,34 @@
     font-size: 1.5rem;
     text-align: center;
   }
+
+  Bot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000; /* Ensure it is above other elements */
+    width: 60px; /* Set the width for a circular shape */
+    height: 60px; /* Set the height for a circular shape */
+    border-radius: 50%; /* Makes it circular */
+    background-color: #0078d4; /* Customize this for the chatbot background */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adds a shadow for better visibility */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden; /* Ensures content stays inside the circle */
+  }
+
+  Bot img {
+    width: 100%; /* Ensures the chatbot icon fits within the circle */
+    height: 100%;
+    object-fit: cover; /* Prevents distortion */
+  }
+
+  /* Optional: Add a hover effect */
+  Bot:hover {
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05); /* Slight zoom effect */
+  }
+
 </style>

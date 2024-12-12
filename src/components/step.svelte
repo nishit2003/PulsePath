@@ -88,6 +88,7 @@
       <Radar {radarOptions} data={{
         labels: Array.from({ length: 7 }, (_, i) => `Hour ${i + 1}`),
         datasets: [{
+          label: 'Steps',
           data: stepData,
           backgroundColor: 'rgba(76, 175, 80, 0.2)',
           borderColor: '#4caf50',

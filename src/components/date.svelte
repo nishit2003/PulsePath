@@ -6,16 +6,19 @@
 
   // State to hold the selected date
   let selectedDate = new Date().toISOString().substring(0, 10); // Default to today’s date
+  let alertMessage = ""; // State for alert message
+  let alertClass = ""; // State for alert class styling
 
   function handleSubmit() {
     const randomOutput = Math.random() > 0.5; // Simulate whether data exists
 
     if (randomOutput) {
-      alert("Entries for that date retrieved successfully!");
+      alertMessage = "Entries for that date retrieved successfully!";
+      alertClass = "alert-success";
     } else {
-      alert("No data exists for that date.");
+      alertMessage = "No data exists for that date.";
+      alertClass = "alert-error";
     }
-    onClose(); // Close the modal
   }
 </script>
 
@@ -35,6 +38,10 @@
     </div>
 
     <Button color="light" class="submit-btn mt-4" on:click={handleSubmit}>Submit</Button>
+
+    {#if alertMessage}
+      <p class="alert-message {alertClass} mt-3">{alertMessage}</p>
+    {/if}
 
     <p class="note mt-4">* The output is random since we actually don’t have a database to store the data.</p>
   </div>
@@ -63,7 +70,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .date-picker label {
@@ -95,6 +102,31 @@
 
   .submit-btn:hover {
     background-color: #b8860b;
+  }
+
+  .alert-message {
+    /* margin-bottom: 10px; */
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.5rem;
+    border-radius: 8px;
+    max-width: 350px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .alert-success {
+    margin-top: 10px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+
+  .alert-error {
+    margin-top: 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
   }
 
   .note {
